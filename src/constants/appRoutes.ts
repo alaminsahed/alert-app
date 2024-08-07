@@ -1,7 +1,7 @@
 export const PUBLIC = {
   SIGN_IN: '/login',
-  OTP: (number: any) => `/otp/${number}`,
-  REGISTER: '/register',
+  OTP: (number: any, type: any) => `/otp/${number}/${type}`,
+  REGISTER: (otp: any, number: any) => `/register/${otp}/${number}`,
 };
 
 export const PRIVATE = {
