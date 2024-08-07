@@ -9,6 +9,7 @@
     "pnpm": "please use npm instead of pnpm"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.4.0",
     "@reduxjs/toolkit": "^1.9.5",
     "@tanstack/react-query": "^4.29.19",
     "@tanstack/react-query-devtools": "^4.29.19",
