@@ -1,38 +1,74 @@
 import {
   Button,
-  Checkbox,
   Col,
   Form,
   Input,
   Layout,
+  message,
   Row,
   Select,
   Typography,
-  message,
 } from 'antd';
 import { useDispatch } from 'react-redux';
 
-import { login } from 'api/login';
-
 import { useForm } from 'antd/es/form/Form';
-import { setUser } from 'features/auth/authSlice';
-import { usePost } from 'hooks/useCustomApi';
-import style from '../sign-in/sign-in.module.css';
-import { useState } from 'react';
+import { areaList, RegisterUser } from 'api/login';
 import { SirenIcon } from 'components/svg/sidebarIcon';
-import { Link, useNavigate } from 'react-router-dom';
-import { PRIVATE, PUBLIC } from 'constants/appRoutes';
+import { PUBLIC } from 'constants/appRoutes';
+import { QUERY_KEYS } from 'constants/queryKeys';
+import { setUser } from 'features/auth/authSlice';
+import { useFetch, usePost } from 'hooks/useCustomApi';
+import { Link, useParams } from 'react-router-dom';
+import style from '../sign-in/sign-in.module.css';
+
+const { Option } = Select;
 
 const Register = () => {
   const [form] = useForm();
-  const navigate = useNavigate();
+  const params = useParams();
+  const dispatch = useDispatch();
+  const postData: any = usePost(RegisterUser);
+
+  const { data: areaLists, isLoading } = useFetch(
+    [QUERY_KEYS],
+    () => areaList(),
+    {
+      onError: (error) => {
+        message.error('Something went wrong');
+      },
+    },
+  );
 
   const onFinish = (values: any) => {
-    const loginData = {
-      email: values.email,
+    const payload = {
+      otp: params.otp,
+      name: values.name,
       password: values.password,
+      mobile_no: values.mobile_no,
+      area: values.area,
+      road: values.road,
+      block: values.block,
+      house: values.house,
+      sector: values.sector,
     };
-    navigate(PUBLIC.SIGN_IN);
+
+    try {
+      postData.mutate(payload, {
+        onSuccess: (data: any) => {
+          message.success(data?.message);
+          dispatch(setUser(data?.data));
+        },
+        onError: (error: any) => {
+          message.error(
+            error?.message ||
+              error?.response?.data?.error?.message ||
+              'Something went wrong',
+          );
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -115,33 +151,74 @@ const Register = () => {
                       },
                     ]}
                   >
-                    <Select options={[{ label: 'hello', value: 'hello' }]} />
+                    <Select placeholder="এলাকা দিন">
+                      {areaLists?.data?.map((area: any) => (
+                        <Option key={area.key} value={area.value}>
+                          {area.value}
+                        </Option>
+                      ))}
+                    </Select>
                   </Form.Item>
+                  <Row
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}
+                  >
+                    <Col>
+                      <Form.Item
+                        label="ব্লক"
+                        name="block"
+                        rules={[
+                          {
+                            required: true,
+                            message: 'আপনার ব্লক দিন!',
+                          },
+                        ]}
+                      >
+                        <Input placeholder="মোবাইল ব্লক দিন" />
+                      </Form.Item>
+                    </Col>
+                    <Col>
+                      <Form.Item
+                        label="সড়ক"
+                        name="road"
+                        rules={[
+                          {
+                            required: true,
+                            message: 'আপনার সড়ক দিন!',
+                          },
+                        ]}
+                      >
+                        <Input placeholder="সড়ক দিন" />
+                      </Form.Item>
+                    </Col>
+                  </Row>
                   <Form.Item
-                    label="পাসওয়ার্ড"
-                    name="password"
+                    label="বাসা নং"
+                    name="house"
                     rules={[
                       {
                         required: true,
-                        message: 'আপনার পাসওয়ার্ড দিন!',
+                        message: 'আপনার বাসা নং দিন!',
                       },
                     ]}
                   >
-                    <Input placeholder="পাসওয়ার্ড দিন" />
+                    <Input placeholder="বাসা নং দিন" />
                   </Form.Item>
                   <Form.Item
-                    label="পাসওয়ার্ড নিশ্চিত করুন"
-                    name="password"
+                    label="সেক্টর"
+                    name="sector"
                     rules={[
                       {
                         required: true,
-                        message: 'আপনার পাসওয়ার্ড দিন!',
+                        message: 'আপনার সেক্টর নং দিন!',
                       },
                     ]}
                   >
-                    <Input placeholder="পাসওয়ার্ড নিশ্চিত করুন" />
+                    <Input placeholder="সেক্টর নং দিন" />
                   </Form.Item>
-
                   <Form.Item>
                     <Button
                       type="primary"

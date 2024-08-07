@@ -1,6 +1,7 @@
 export const QUERY_KEYS = {
   LOGIN: 'login',
   DASHBOARD: 'dashboard',
+  AREA_LIST: 'area-list',
   INVOICE_DETAILS: 'invoice-details',
   DISTRIBUTORS: 'distributors',
   DEPOSIT_DETAILS: 'deposit-details',

@@ -1,7 +1,5 @@
-import React from 'react';
 import {
   Button,
-  Checkbox,
   Col,
   Form,
   Input,
@@ -12,28 +10,54 @@ import {
 } from 'antd';
 import { useDispatch } from 'react-redux';
 
-import { login } from 'api/login';
-
 import { useForm } from 'antd/es/form/Form';
+import { VerifyOtp } from 'api/login';
+import { SirenIcon } from 'components/svg/sidebarIcon';
+import { PUBLIC } from 'constants/appRoutes';
 import { setUser } from 'features/auth/authSlice';
 import { usePost } from 'hooks/useCustomApi';
-import style from '../sign-in/sign-in.module.css';
-import { useState } from 'react';
-import { SirenIcon } from 'components/svg/sidebarIcon';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { PRIVATE, PUBLIC } from 'constants/appRoutes';
+import style from '../sign-in/sign-in.module.css';
 
 const Otp = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [form] = useForm();
+  const dispatch = useDispatch();
+
+  const postData: any = usePost(VerifyOtp);
 
   const onFinish = (values: any) => {
-    const loginData = {
-      email: values.email,
-      password: values.password,
+    const otpString = Array.from({ length: 6 })
+      .map((_, index) => values[`otp${index}`])
+      .join('');
+
+    const payload = {
+      mobile_no: params?.number,
+      otp: otpString,
+      type: params?.type,
     };
-    navigate(PRIVATE.HOME);
+    try {
+      postData.mutate(payload, {
+        onSuccess: (data: any) => {
+          message.success(data?.message);
+          if (params?.type === '1') {
+            navigate(`/register/${otpString}/${params?.number}`);
+          } else {
+            dispatch(setUser(data?.data));
+          }
+        },
+        onError: (error: any) => {
+          message.error(
+            error?.errors?.otp[0] ||
+              error?.response?.data?.error?.message ||
+              'Something went wrong',
+          );
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <Layout
@@ -92,7 +116,7 @@ const Otp = () => {
                 {' '}
                 <div style={{ marginBottom: 20 }}>
                   <Typography.Paragraph className={style.subHeader}>
-                    {params?.number} নাম্বারটিতে ৫ ডিজিটের একটি ওটিপি গিয়েছে
+                    {params?.number} নাম্বারটিতে একটি ওটিপি গিয়েছে
                   </Typography.Paragraph>
                 </div>
                 <Form
@@ -104,7 +128,7 @@ const Otp = () => {
                 >
                   <Form.Item>
                     <Row gutter={8} justify="center">
-                      {Array.from({ length: 5 }).map((_, index) => (
+                      {Array.from({ length: 6 }).map((_, index) => (
                         <Col key={index}>
                           <Form.Item
                             name={`otp${index}`}
