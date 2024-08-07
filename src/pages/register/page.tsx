@@ -166,56 +166,20 @@ const Register = () => {
                     }}
                   >
                     <Col>
-                      <Form.Item
-                        label="ব্লক"
-                        name="block"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'আপনার ব্লক দিন!',
-                          },
-                        ]}
-                      >
+                      <Form.Item label="ব্লক" name="block">
                         <Input placeholder="মোবাইল ব্লক দিন" />
                       </Form.Item>
                     </Col>
                     <Col>
-                      <Form.Item
-                        label="সড়ক"
-                        name="road"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'আপনার সড়ক দিন!',
-                          },
-                        ]}
-                      >
+                      <Form.Item label="সড়ক" name="road">
                         <Input placeholder="সড়ক দিন" />
                       </Form.Item>
                     </Col>
                   </Row>
-                  <Form.Item
-                    label="বাসা নং"
-                    name="house"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'আপনার বাসা নং দিন!',
-                      },
-                    ]}
-                  >
+                  <Form.Item label="বাসা নং" name="house">
                     <Input placeholder="বাসা নং দিন" />
                   </Form.Item>
-                  <Form.Item
-                    label="সেক্টর"
-                    name="sector"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'আপনার সেক্টর নং দিন!',
-                      },
-                    ]}
-                  >
+                  <Form.Item label="সেক্টর" name="sector">
                     <Input placeholder="সেক্টর নং দিন" />
                   </Form.Item>
                   <Form.Item>
