@@ -27,3 +27,16 @@ export const listIncident = async () => {
     throw error;
   }
 };
+
+export const singleIncident = async (id: number) => {
+  try {
+    const response = await axios.post(API_ENDPOINTS.SINGLE_INCIDENTS(id));
+    if (response?.data?.code === STATUS.SUCCESS) {
+      return response?.data;
+    } else {
+      throw response?.data;
+    }
+  } catch (error) {
+    throw error;
+  }
+};

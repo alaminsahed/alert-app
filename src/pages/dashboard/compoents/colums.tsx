@@ -1,5 +1,7 @@
 import { EyeOutlined } from '@ant-design/icons';
 import { Button, Tag } from 'antd';
+import { PRIVATE } from 'constants/appRoutes';
+import { Link } from 'react-router-dom';
 
 const Columns = () => {
   const statusTag = (status: any, text: any) => {
@@ -74,7 +76,11 @@ const Columns = () => {
       title: 'Action',
       dataIndex: 'name',
       key: 'name',
-      render: (_: any, record: any) => <Button icon={<EyeOutlined />} />,
+      render: (_: any, record: any) => (
+        <Link key={record?.id} to={PRIVATE.VIEW_INCIDENT(record?.id)}>
+          <Button icon={<EyeOutlined />} />
+        </Link>
+      ),
     },
   ];
 };

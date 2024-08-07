@@ -5,6 +5,7 @@ const API_ENDPOINTS = {
   REGISTER: '/v1/register',
   CREATE_INCIDENTS: '/v1/incidents/create',
   LIST_INCIDENTS: '/v1/incidents/list',
+  SINGLE_INCIDENTS: (id: number) => `/v1/incidents/${id}/show`,
 };
 
 export default API_ENDPOINTS;

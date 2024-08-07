@@ -7,5 +7,5 @@ export const PUBLIC = {
 export const PRIVATE = {
   HOME: '/',
   CREATE_INCIDENT: '/create-incident',
-  VIEW_INCIDENT: '/view-incident',
+  VIEW_INCIDENT: (id: unknown) => `/view-incident/${id}`,
 };
