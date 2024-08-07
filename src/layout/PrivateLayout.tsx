@@ -117,7 +117,7 @@ const PrivateLayout: React.FC = () => {
               textAlign: 'center',
             }}
           >
-            Emergency Alert
+            Quick Response
           </div>
           <hr />
           <ConfigProvider

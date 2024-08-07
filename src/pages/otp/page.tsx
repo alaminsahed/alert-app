@@ -11,7 +11,7 @@ import {
 import { useDispatch } from 'react-redux';
 
 import { useForm } from 'antd/es/form/Form';
-import { VerifyOtp } from 'api/login';
+import { RequestOtp, VerifyOtp } from 'api/login';
 import { SirenIcon } from 'components/svg/sidebarIcon';
 import { PRIVATE, PUBLIC } from 'constants/appRoutes';
 import { setUser } from 'features/auth/authSlice';
@@ -26,6 +26,30 @@ const Otp = () => {
   const dispatch = useDispatch();
 
   const postData: any = usePost(VerifyOtp);
+  const ReqData: any = usePost(RequestOtp);
+
+  const againOtp = () => {
+    const payload = {
+      mobile_no: params?.number,
+    };
+    try {
+      ReqData.mutate(payload, {
+        onSuccess: (data: any) => {
+          message.success(data?.message);
+        },
+        onError: (error: any) => {
+          message.error(
+            error?.errors[0] ||
+              error?.message ||
+              error?.response?.data?.error?.message ||
+              'Something went wrong',
+          );
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const onFinish = (values: any) => {
     const otpString = Array.from({ length: 6 })
@@ -173,7 +197,7 @@ const Otp = () => {
                     <Link to={PUBLIC.SIGN_IN} style={{ color: 'black' }}>
                       ইনফরমেশন এডিট করুন
                     </Link>
-                    <Link to="" style={{ color: 'red' }}>
+                    <Link to="" style={{ color: 'red' }} onClick={againOtp}>
                       আবার পাঠান
                     </Link>
                   </div>
