@@ -1,4 +1,4 @@
-import { Button, Card, Col, Form, Input, Row } from 'antd';
+import { Button, Card, Col, Form, Input, message, Row } from 'antd';
 import { useRef, useState } from 'react';
 import { CloseOutlined } from '@ant-design/icons';
 
@@ -12,13 +12,18 @@ import {
   VandalismIcon,
 } from 'components/svg/sidebarIcon';
 import styles from './create-incident.module.css';
+import { usePost } from 'hooks/useCustomApi';
+import { createIncident } from 'api/dashboard';
 
 const { TextArea } = Input;
 
 const CreateIncidentPage = () => {
   const fileInputRef = useRef<any>(null);
   const [photo, setPhoto] = useState<any>(null);
+  const [audio, setAudio] = useState<any>(null);
   const [selectedType, setSelectedType] = useState<any>(1);
+
+  const create = usePost(createIncident);
 
   const [form] = Form.useForm();
   const incidentTypes = [
@@ -49,15 +54,53 @@ const CreateIncidentPage = () => {
       setPhoto(file);
     }
   };
+  const makeDefaults = () => {
+    setPhoto(null);
+    setAudio(null);
+    setSelectedType(1);
+  };
 
   const onFinish = (values: any) => {
-    const formdata = new FormData();
+    const formdata: any = new FormData();
     formdata.append('incident_type_id', selectedType);
-    // formdata.append('mobile_no', '01917854570');
-    // formdata.append('request_medium', '2');
+    formdata.append('note', values?.details);
+    formdata.append('request_medium', '3');
+    if (audio) {
+      formdata.append('audio', audio);
+    }
     if (photo) {
       formdata.append('image', photo);
     }
+
+    create.mutate(formdata, {
+      onSuccess: (data) => {
+        message.success('Create Success');
+        form.resetFields();
+        makeDefaults();
+      },
+      // onError: (error: any) => {
+      //   if (
+      //     error &&
+      //     error?.code === STATUS.UNPROCESSABLE_ENTITY &&
+      //     Object.keys(error?.errors).length > 0
+      //   ) {
+      //     const errorMessage: any = Object.keys(error.errors)?.map(
+      //       (key: any) => ({
+      //         name: key,
+      //         errors: error.errors[key],
+      //       }),
+      //     );
+      //     form.setFields(
+      //       errorMessage.map((item: any) => ({
+      //         name: item.name === 'file_name' ? 'file' : item?.name,
+      //         errors: item.errors,
+      //       })),
+      //     );
+      //   } else {
+      //     errorResponseHandler(error, 'Unable to add');
+      //   }
+      // },
+    });
   };
 
   return (

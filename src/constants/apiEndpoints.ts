@@ -45,6 +45,8 @@ const API_ENDPOINTS = {
   CHANGE_REPORT_STATUS: (id: number) => `/api/v1/reconciliations/${id}`,
   OUT_STANDING_INVOICE: '/api/v1/invoice-outstanding',
   ADD_DISTRIBUTOR: '/api/v1/distributors',
+
+  CREATE_INCIDENTS: '/v1/incidents/create',
 };
 
 export default API_ENDPOINTS;
