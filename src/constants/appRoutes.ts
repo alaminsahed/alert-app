@@ -8,4 +8,5 @@ export const PRIVATE = {
   HOME: '/',
   CREATE_INCIDENT: '/create-incident',
   VIEW_INCIDENT: (id: unknown) => `/view-incident/${id}`,
+  LAW: '/law-enforcement-contact-list',
 };

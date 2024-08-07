@@ -3,6 +3,7 @@ import { lazy } from 'react';
 import { PRIVATE } from 'constants/appRoutes';
 import CreateIncidentPage from 'pages/create-incident/page';
 import IncidentDetailsPage from 'pages/incident-details/page';
+import LawEnforcementContactListPage from 'pages/law-enforcement-contact-list/page';
 
 const DashboardPage = lazy(() => import('pages/dashboard/page'));
 
@@ -26,6 +27,11 @@ export const privateRoutes: IRoute[] = [
   {
     path: PRIVATE.VIEW_INCIDENT(':id'),
     element: <IncidentDetailsPage />,
+    permissions: '',
+  },
+  {
+    path: PRIVATE.LAW,
+    element: <LawEnforcementContactListPage />,
     permissions: '',
   },
 ];

@@ -4,7 +4,6 @@ import {
   Avatar,
   Button,
   ConfigProvider,
-  Image,
   Layout,
   Menu,
   Popover,
@@ -15,7 +14,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import ErrorBoundary from 'components/error-boundary';
 import { Loader } from 'components/layout';
-import { HomeIcon } from 'components/svg/sidebarIcon';
+import { CardSendIcon, HomeIcon } from 'components/svg/sidebarIcon';
 import { PRIVATE } from 'constants/appRoutes';
 import { MENU_ITEMS } from 'constants/menuItems';
 import { clearUser } from 'features/auth/authSlice';
@@ -47,6 +46,7 @@ const getItem = (
 
 const items: MenuItem[] = [
   getItem(MENU_ITEMS.DASHBOARD, PRIVATE.HOME, <HomeIcon />),
+  getItem(MENU_ITEMS.LAW, PRIVATE.LAW, <CardSendIcon />),
 ];
 
 const PrivateLayout: React.FC = () => {
