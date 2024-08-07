@@ -1,0 +1,147 @@
+:root {
+  --Neutral-900: #0a1833;
+  --Neutral-800: #304262;
+  --Neutral-White: #fff;
+}
+
+.login__layout {
+  padding: 0rem 5rem 5rem 5rem;
+  height: 100vh;
+}
+.login__form {
+  max-width: 400px;
+  width: 100%;
+}
+.login__btn {
+  width: 100%;
+  margin-top: 10px;
+}
+.header__section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icon__part {
+  display: flex;
+  align-items: center;
+}
+
+.icon__part img {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 1rem;
+}
+
+.bar__section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bar__section img {
+  width: 100%;
+}
+
+.login__content {
+  margin-top: 2rem;
+}
+
+.left__content {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.right__content {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.right__content label span,
+.changePassword__section label span {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: red;
+}
+
+.forget__password__section {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 1rem;
+  color: #009ef7;
+  cursor: pointer;
+}
+
+.changePassword__section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  color: #009ef7;
+  /* cursor: pointer; */
+  height: 70vh;
+}
+
+@font-face {
+  font-family: Onest;
+  src: url(../../../public/fonts/Onest-VariableFont_wght.ttf);
+}
+
+@font-face {
+  font-family: Mulish;
+  src: url(../../../public/fonts/Mulish-VariableFont_wght.ttf);
+}
+
+.header {
+  font-family: Onest;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+  color: var(--Neutral-900);
+}
+
+.subHeader {
+  font-family: Mulish;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--Neutral-800);
+}
+
+label {
+  /* font-family: Onest !important; */
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  color: var(--Neutral-700);
+}
+
+.subText {
+  font-family: Onest;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  color: var(--Neutral-White);
+}
+
+.text {
+  color: #fff;
+  font-family: Onest;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 44px;
+}
+
+@media (max-width: 576px) {
+  .form_section {
+    padding: 20px;
+  }
+}

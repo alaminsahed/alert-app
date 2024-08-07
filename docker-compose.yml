@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: stl-distributor
+    image: stl-distributor
+    build:
+      context: .
+      target: production
+    ports:
+      - '3000:80'
+    restart: always

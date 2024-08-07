@@ -1,0 +1,36 @@
+@font-face {
+  font-family: Sans;
+  src: url(../../../public/fonts/Inter-VariableFont_slnt\,wght.ttf);
+}
+
+.dashboard-card-icon {
+  min-height: 44px;
+  height: 44px;
+  min-width: 44px;
+  width: 44px;
+  border-radius: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+}
+
+.dashboard-card-title {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 12px;
+  font-weight: 700;
+  color: #8490b2;
+  font-family: 'Sans';
+}
+
+.dashboard-card-subtitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2c2c2c;
+}
+
+.tk-icon {
+  height: 24px;
+  width: 24px;
+}

@@ -1,0 +1,74 @@
+@font-face {
+  font-family: Sans;
+  src: url(../../../public/fonts/DMSans-VariableFont_opsz\,wght.ttf);
+}
+
+.header {
+  color: #2b3674 !important;
+  font-family: 'Sans';
+  font-size: 14px !important;
+  font-style: normal !important;
+  margin-top: 0 !important;
+  font-weight: 700 !important;
+}
+
+.headerAmount {
+  color: #2b3674 !important;
+  /* font-family: 'Sans'; */
+  font-size: 20px !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.table_header {
+  color: #2b3674 !important;
+  font-family: 'Sans';
+  font-size: 14px !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  margin-top: 0 !important;
+}
+
+.graphHeader {
+  display: flex !important;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: '20px' !important;
+}
+
+.mobile_margin_top {
+  margin-top: 20px !important;
+}
+
+@media (max-width: 768px) {
+  .mobile_margin_top {
+    margin-top: 0px !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .mobile_margin_top {
+    margin-top: 0px !important;
+  }
+}
+
+.flex_card {
+  border: #2b3674 1px solid;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+@media (max-width: 425px) {
+  .headerAmount {
+    font-size: 16px !important;
+  }
+}
+
+@media (max-width: 320px) {
+  .headerAmount {
+    font-size: 12px !important;
+  }
+}

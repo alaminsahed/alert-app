@@ -1,0 +1,49 @@
+/* common styles */
+.mt-0 {
+  margin-top: 0 !important;
+}
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+.mr-0 {
+  margin-right: 0 !important;
+}
+.ml-0 {
+  margin-left: 0 !important;
+}
+.flex {
+  display: flex;
+}
+.m-0 {
+  margin: 0 !important;
+}
+
+/* .ant-menu-submenu::after {
+  border-bottom-color: none !important;
+  border-bottom: none !important;
+}
+
+.profile__section__avatar .ant-avatar-circle {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.expense__table .ant-card-body {
+  padding: 0 !important;
+}
+
+.ant-image-mask {
+  border-radius: 20px !important;
+}
+
+.ant-breadcrumb-separator {
+  color: #a1a5b7 !important;
+  font-weight: 500 !important;
+  font-size: 0.85rem !important;
+}
+
+@media screen and (max-width: 575px) {
+  .ant-card-body {
+    padding: 10px !important;
+  }
+} */

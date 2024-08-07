@@ -1,0 +1,29 @@
+.mainLayout {
+  min-height: 100vh;
+}
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  background: white;
+  text-align: right;
+  background-color: white !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logoContainer {
+  cursor: pointer;
+}
+.collapsedLogoContainer {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.contentContainer {
+  padding: 0px 24px 24px 24px;
+  min-height: calc(100vh - 64px);
+}
+.footerLink {
+  margin-left: 5px;
+}

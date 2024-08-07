@@ -1,0 +1,69 @@
+.profile {
+  display: flex;
+  justify-content: flex-end;
+}
+.avatar {
+  height: 40px;
+  width: 40px;
+}
+
+.profile__section {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.custom__card {
+  width: 300px !important;
+}
+
+.image__section {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.image__section img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.name__section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.name__section h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+}
+
+.name__section p {
+  font-size: 1rem;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+
+.custom__card hr {
+  margin-top: 2px;
+  margin-bottom: 4px;
+}
+
+.profile__menu__setting__section ul {
+  padding-left: 10px;
+}
+
+.profile__menu__setting__section ul li {
+  list-style-type: none;
+}
+
+.profile__menu__setting__section li div:first-child {
+  border-bottom-width: 0px !important;
+  border-bottom-color: none !important;
+}

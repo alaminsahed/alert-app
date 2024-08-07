@@ -1,0 +1,17 @@
+.input {
+  margin-bottom: 10px;
+}
+.borderRed {
+  border-color: red;
+}
+.inputField {
+  margin-top: 5px;
+}
+.errorMessage {
+  margin-top: 5px;
+  color: red;
+  display: none;
+}
+.displayBlock {
+  display: block !important;
+}

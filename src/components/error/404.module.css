@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 200px);
+  flex-direction: column;
+}
+.image {
+  width: 350px;
+  height: 350px;
+  object-fit: contain;
+}
+.description {
+  color: #999999;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: center;
+  width: 50%;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}

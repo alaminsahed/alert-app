@@ -1,0 +1,17 @@
+export const QUERY_KEYS = {
+  LOGIN: 'login',
+  DASHBOARD: 'dashboard',
+  INVOICE_DETAILS: 'invoice-details',
+  DISTRIBUTORS: 'distributors',
+  DEPOSIT_DETAILS: 'deposit-details',
+  BANKS: 'banks',
+  REPORTS: 'reports',
+  SETTLEMENT_DETAILS: 'settlement-details',
+  BANK_BRANCH: 'bank-branch',
+  modalInfo: 'modalInfo',
+  ALL_Transactions: 'all-transactions',
+  DASHBOARD_PAYMENTS: 'dashboard-payments',
+  DASHBOARD_INVOICES: 'dashboard-invoices',
+  PAYMENT: 'payment',
+  Out_standing_Invoice: 'out-standing-invoice',
+};

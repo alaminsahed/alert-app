@@ -1,0 +1,68 @@
+:root {
+  --Neutral-900: #0a1833;
+  --Neutral-800: #304262;
+  --Neutral-White: #fff;
+  --black: #2c2c2c;
+  --Theme-Primary: #0d99ff;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url(../../public/fonts/Inter-VariableFont_slnt\,wght.ttf);
+}
+
+.table_fonts {
+  color: var(--black);
+  font-family: Inter;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; /* 145.455% */
+}
+
+@font-face {
+  font-family: Sans;
+  src: url(../../public/fonts/DMSans-VariableFont_opsz\,wght.ttf);
+}
+
+.table_header {
+  font-family: Sans;
+  color: #2b3674;
+  font-family: 'Sans';
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 42px;
+  letter-spacing: -0.4px;
+}
+
+.download_btn {
+  border-radius: 6px;
+  border: 1px solid var(--Theme-Primary);
+  background: #fff;
+  color: var(--Theme-Primary);
+}
+
+.add_btn {
+  background-color: #0d99ff;
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
+  align-items: center;
+  background-color: #fff;
+}
+
+@media (max-width: 768px) {
+  .headerContainer {
+    flex-direction: column;
+    padding: 60px;
+  }
+}
+
+.modal_fonts {
+  color: var(--black);
+  font-family: Inter !important;
+}
