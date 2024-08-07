@@ -23,7 +23,7 @@ const App = () => {
         <Route element={<GuestRouteWrapper />}>
           <Route path={PUBLIC.SIGN_IN} element={<SignInPage />} />
         </Route>
-        <Route path={PUBLIC.OTP(':number', ':type')} element={<Otp />} />
+        <Route path={PUBLIC.OTP(':number')} element={<Otp />} />
         <Route
           path={PUBLIC.REGISTER(':otp', ':number')}
           element={<Register />}

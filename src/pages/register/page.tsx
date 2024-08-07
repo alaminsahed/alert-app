@@ -14,11 +14,11 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'antd/es/form/Form';
 import { areaList, RegisterUser } from 'api/login';
 import { SirenIcon } from 'components/svg/sidebarIcon';
-import { PUBLIC } from 'constants/appRoutes';
+import { PRIVATE } from 'constants/appRoutes';
 import { QUERY_KEYS } from 'constants/queryKeys';
 import { setUser } from 'features/auth/authSlice';
 import { useFetch, usePost } from 'hooks/useCustomApi';
-import { Link, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import style from '../sign-in/sign-in.module.css';
 
 const { Option } = Select;
@@ -27,17 +27,14 @@ const Register = () => {
   const [form] = useForm();
   const params = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const postData: any = usePost(RegisterUser);
 
-  const { data: areaLists, isLoading } = useFetch(
-    [QUERY_KEYS],
-    () => areaList(),
-    {
-      onError: (error) => {
-        message.error('Something went wrong');
-      },
+  const { data: areaLists } = useFetch([QUERY_KEYS], () => areaList(), {
+    onError: (error) => {
+      message.error('Something went wrong');
     },
-  );
+  });
 
   const onFinish = (values: any) => {
     const payload = {
@@ -57,10 +54,12 @@ const Register = () => {
         onSuccess: (data: any) => {
           message.success(data?.message);
           dispatch(setUser(data?.data));
+          navigate(PRIVATE.HOME);
         },
         onError: (error: any) => {
           message.error(
-            error?.message ||
+            error?.errors[0] ||
+              error?.message ||
               error?.response?.data?.error?.message ||
               'Something went wrong',
           );
@@ -229,11 +228,11 @@ const Register = () => {
                     >
                       রেজিস্ট্রেশন করুন
                     </Button>
-                    <div style={{ marginTop: 20 }}>
+                    {/* <div style={{ marginTop: 20 }}>
                       <Link to={PUBLIC.SIGN_IN} style={{ color: 'black' }}>
                         লগইন করুন
                       </Link>
-                    </div>
+                    </div> */}
                   </Form.Item>
                 </Form>
               </>

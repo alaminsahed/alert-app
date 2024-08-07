@@ -1,6 +1,6 @@
 export const PUBLIC = {
   SIGN_IN: '/login',
-  OTP: (number: any, type: any) => `/otp/${number}/${type}`,
+  OTP: (number: any) => `/otp/${number}`,
   REGISTER: (otp: any, number: any) => `/register/${otp}/${number}`,
 };
 
