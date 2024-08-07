@@ -20,7 +20,7 @@ import { PRIVATE } from 'constants/appRoutes';
 import { MENU_ITEMS } from 'constants/menuItems';
 import { clearUser } from 'features/auth/authSlice';
 import useCollapsed from 'hooks/useCollapsed';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './PrivateLayout.module.css';
 
 const { Header, Content, Sider, Footer } = Layout;
@@ -50,6 +50,7 @@ const items: MenuItem[] = [
 ];
 
 const PrivateLayout: React.FC = () => {
+  const auth: any = useSelector((state: any) => state.auth);
   const dispatch = useDispatch();
   const { collapsed, setCollapsed } = useCollapsed();
   const [visible, setVisible] = useState(false);
@@ -190,10 +191,10 @@ const PrivateLayout: React.FC = () => {
                 }}
               >
                 <Typography.Text style={{ color: 'black' }}>
-                  mr.alex
+                  {auth?.user?.name}
                 </Typography.Text>
                 <Typography.Text type="secondary" style={{ color: 'blue' }}>
-                  Senior Admin
+                  {auth?.user?.email}
                 </Typography.Text>
               </div>
               <Popover
