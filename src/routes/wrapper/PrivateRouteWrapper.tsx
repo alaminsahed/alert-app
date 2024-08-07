@@ -10,8 +10,7 @@ const PrivateRouteWrapper = () => {
   return auth.access_token ? (
     <Outlet />
   ) : (
-    // <Navigate to={PUBLIC.SIGN_IN} replace />
-    <Outlet />
+    <Navigate to={PUBLIC.SIGN_IN} replace />
   );
 };
 

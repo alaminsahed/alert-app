@@ -20,7 +20,6 @@ import style from './sign-in.module.css';
 
 const SignInPage = () => {
   const [phone, setPhone] = useState('');
-  const [type, setType] = useState<any>();
   const navigate = useNavigate();
   const postData: any = usePost(RequestOtp);
   const [form] = useForm();
@@ -28,13 +27,12 @@ const SignInPage = () => {
   const onFinish = (values: any) => {
     const payload = {
       mobile_no: values.mobile_no,
-      type: type,
     };
     try {
       postData.mutate(payload, {
         onSuccess: (data: any) => {
           message.success(data?.message);
-          navigate(`/otp/${phone}/${type}`);
+          navigate(`/otp/${phone}`);
         },
         onError: (error: any) => {
           message.error(
@@ -138,11 +136,10 @@ const SignInPage = () => {
                       block
                       size="large"
                       style={{ backgroundColor: '#FF3737', marginTop: 20 }}
-                      onClick={() => setType(2)}
                     >
-                      লগইন করুন
+                      লগইন করুন / রেজিস্ট্রেশন করুন
                     </Button>
-                    <div style={{ marginTop: 20 }}>
+                    {/* <div style={{ marginTop: 20 }}>
                       <Button
                         type="primary"
                         htmlType="submit"
@@ -153,7 +150,7 @@ const SignInPage = () => {
                       >
                         রেজিস্ট্রেশন করুন
                       </Button>
-                    </div>
+                    </div> */}
                   </Form.Item>
                 </Form>
               </>
