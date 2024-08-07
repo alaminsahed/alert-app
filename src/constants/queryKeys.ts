@@ -15,4 +15,5 @@ export const QUERY_KEYS = {
   DASHBOARD_INVOICES: 'dashboard-invoices',
   PAYMENT: 'payment',
   Out_standing_Invoice: 'out-standing-invoice',
+  INCIDENTS: 'incidents',
 };
