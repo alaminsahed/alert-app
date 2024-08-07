@@ -40,3 +40,16 @@ export const singleIncident = async (id: number) => {
     throw error;
   }
 };
+
+export const incidentAction = async (data: any) => {
+  try {
+    const response = await axios.post(API_ENDPOINTS.ACTION_INCIDENTS, data);
+    if (response?.data?.code === STATUS.SUCCESS) {
+      return response?.data;
+    } else {
+      throw response?.data;
+    }
+  } catch (error) {
+    throw error;
+  }
+};

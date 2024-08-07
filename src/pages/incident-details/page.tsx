@@ -1,19 +1,18 @@
 import { ArrowLeftOutlined, PhoneOutlined } from '@ant-design/icons';
-import { Button, Card, Image, Input, message, Result } from 'antd';
-import { singleIncident } from 'api/dashboard';
+import { Button, Card, Image, message, Result } from 'antd';
+import { incidentAction, singleIncident } from 'api/dashboard';
 import { Loader } from 'components/layout';
 import { QUERY_KEYS } from 'constants/queryKeys';
-import { useFetch } from 'hooks/useCustomApi';
+import { useFetch, usePost } from 'hooks/useCustomApi';
 import { useNavigate, useParams } from 'react-router-dom';
-
-const { TextArea } = Input;
 
 const IncidentDetailsPage = () => {
   const navigate = useNavigate();
+  const action = usePost(incidentAction);
 
   const { id } = useParams<{ id: string }>();
 
-  const { data, isLoading, isError } = useFetch(
+  const { data, isLoading, isError, refetch } = useFetch(
     [QUERY_KEYS.INCIDENTS, id],
     () => singleIncident(Number(id)),
     {
@@ -24,41 +23,38 @@ const IncidentDetailsPage = () => {
     },
   );
 
-  //   const onFinish = (values: any) => {
-  //     const formdata: any = new FormData();
-  //     formdata.append('incident_type_id', selectedType);
-  //     formdata.append('note', values?.details);
-  //     formdata.append('request_medium', '3');
-  //     if (audio) {
-  //       formdata.append('audio', audio);
-  //     }
-  //     if (photo) {
-  //       formdata.append('image', photo);
-  //     }
-
-  //     create.mutate(formdata, {
-  //       onSuccess: (data) => {
-  //         message.success('Create Success');
-  //         form.resetFields();
-  //         makeDefaults();
-  //       },
-  //     });
-  //   };
+  const onAction = (values: any) => {
+    const formdata: any = new FormData();
+    formdata.append('id', values?.id);
+    formdata.append('status', values?.status);
+    action.mutate(formdata, {
+      onSuccess: (data) => {
+        message.success('Success');
+        refetch();
+      },
+      onError: (error: any) => {
+        message.error('Something went wrong');
+      },
+    });
+  };
 
   return (
     <Card
       title={
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            cursor: 'pointer',
-          }}
-          onClick={() => navigate(-1)}
-        >
-          <ArrowLeftOutlined />
-          Incident Details
+        <div>
+          <span
+            style={{
+              cursor: 'pointer',
+            }}
+            onClick={() => navigate(-1)}
+          >
+            <ArrowLeftOutlined
+              style={{
+                marginRight: 10,
+              }}
+            />
+            Incident Details
+          </span>
         </div>
       }
       bodyStyle={{
@@ -149,9 +145,43 @@ const IncidentDetailsPage = () => {
               gap: 10,
             }}
           >
-            <Button>যাচাই করা হচ্ছে</Button>
-            <Button type="primary">সবাইকে সতর্ক করুন</Button>
-            <Button type="primary" danger>
+            <Button
+              htmlType="button"
+              onClick={() =>
+                onAction({
+                  id: data?.data?.id,
+                  status: 1,
+                })
+              }
+              disabled={action.isLoading}
+            >
+              যাচাই করা হচ্ছে
+            </Button>
+            <Button
+              type="primary"
+              htmlType="button"
+              onClick={() =>
+                onAction({
+                  id: data?.data?.id,
+                  status: 2,
+                })
+              }
+              disabled={action.isLoading}
+            >
+              সবাইকে সতর্ক করুন
+            </Button>
+            <Button
+              type="primary"
+              danger
+              htmlType="button"
+              onClick={() =>
+                onAction({
+                  id: data?.data?.id,
+                  status: 3,
+                })
+              }
+              disabled={action.isLoading}
+            >
               বাতিল করুন
             </Button>
           </div>

@@ -6,6 +6,7 @@ const API_ENDPOINTS = {
   CREATE_INCIDENTS: '/v1/incidents/create',
   LIST_INCIDENTS: '/v1/incidents/list',
   SINGLE_INCIDENTS: (id: number) => `/v1/incidents/${id}/show`,
+  ACTION_INCIDENTS: `/v1/incidents/action`,
 };
 
 export default API_ENDPOINTS;
