@@ -20,8 +20,53 @@ const { TextArea } = Input;
 const CreateIncidentPage = () => {
   const fileInputRef = useRef<any>(null);
   const [photo, setPhoto] = useState<any>(null);
-  const [audio, setAudio] = useState<any>(null);
   const [selectedType, setSelectedType] = useState<any>(1);
+  const [recording, setRecording] = useState(false);
+  const [mediaRecorder, setMediaRecorder] = useState<any>(null);
+  const [audioBlob, setAudioBlob] = useState<any>(null);
+  const audioChunks = useRef<any>([]);
+  const startRecording = async () => {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      console.error('Media devices are not supported by this browser.');
+      return;
+    }
+
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const recorder = new MediaRecorder(stream);
+      setMediaRecorder(recorder);
+
+      recorder.ondataavailable = (event) => {
+        audioChunks.current.push(event.data);
+      };
+
+      recorder.onstop = () => {
+        const audioBlob = new Blob(audioChunks.current, { type: 'audio/wav' });
+        setAudioBlob(audioBlob);
+        audioChunks.current = [];
+      };
+
+      recorder.start();
+      setRecording(true);
+    } catch (err) {
+      console.error('Error accessing microphone:', err);
+    }
+  };
+
+  // Stop recording
+  const stopRecording = () => {
+    if (mediaRecorder) {
+      mediaRecorder.stop();
+      setRecording(false);
+    }
+  };
+
+  const sendAudio = () => {
+    if (!audioBlob) {
+      return null;
+    }
+    return audioBlob;
+  };
 
   const create = usePost(createIncident);
 
@@ -56,8 +101,10 @@ const CreateIncidentPage = () => {
   };
   const makeDefaults = () => {
     setPhoto(null);
-    setAudio(null);
     setSelectedType(1);
+    setRecording(false);
+    setMediaRecorder(null);
+    setAudioBlob(null);
   };
 
   const onFinish = (values: any) => {
@@ -65,6 +112,7 @@ const CreateIncidentPage = () => {
     formdata.append('incident_type_id', selectedType);
     formdata.append('note', values?.details);
     formdata.append('request_medium', '3');
+    const audio = sendAudio();
     if (audio) {
       formdata.append('audio', audio);
     }
@@ -78,28 +126,9 @@ const CreateIncidentPage = () => {
         form.resetFields();
         makeDefaults();
       },
-      // onError: (error: any) => {
-      //   if (
-      //     error &&
-      //     error?.code === STATUS.UNPROCESSABLE_ENTITY &&
-      //     Object.keys(error?.errors).length > 0
-      //   ) {
-      //     const errorMessage: any = Object.keys(error.errors)?.map(
-      //       (key: any) => ({
-      //         name: key,
-      //         errors: error.errors[key],
-      //       }),
-      //     );
-      //     form.setFields(
-      //       errorMessage.map((item: any) => ({
-      //         name: item.name === 'file_name' ? 'file' : item?.name,
-      //         errors: item.errors,
-      //       })),
-      //     );
-      //   } else {
-      //     errorResponseHandler(error, 'Unable to add');
-      //   }
-      // },
+      onError: (error: any) => {
+        message.error('Something went wrong');
+      },
     });
   };
 
@@ -168,7 +197,10 @@ const CreateIncidentPage = () => {
         <Row gutter={16}>
           <Col sm={24} md={12} lg={12} xl={12}>
             <Form.Item label="Upload Audio">
-              <div className={styles.upload_audio_photo}>
+              <div
+                className={styles.upload_audio_photo}
+                onClick={recording ? stopRecording : startRecording}
+              >
                 <div
                   style={{
                     display: 'flex',
@@ -178,7 +210,9 @@ const CreateIncidentPage = () => {
                   }}
                 >
                   <MicIcon />
-                  <span>Add Voice Input</span>
+                  <span>
+                    {recording ? 'Stop Recording' : 'Add Voice Input'}
+                  </span>
                 </div>
               </div>
             </Form.Item>

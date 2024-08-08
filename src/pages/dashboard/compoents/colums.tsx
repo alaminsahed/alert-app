@@ -58,7 +58,16 @@ const Columns = () => {
       title: 'Voice',
       dataIndex: 'audio',
       key: 'audio',
-      render: (_: any, record: any) => record?.audio || 'N/A',
+      render: (_: any, record: any) => (
+        <div
+          style={{
+            cursor: 'pointer',
+          }}
+          onClick={() => downloadImage(record?.audio_url)}
+        >
+          {record?.audio || 'N/A'}
+        </div>
+      ),
     },
     {
       title: 'Photo',
