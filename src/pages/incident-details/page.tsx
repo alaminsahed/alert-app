@@ -97,10 +97,7 @@ const IncidentDetailsPage = () => {
           >
             <span>ছবিঃ </span>
             {data?.data?.image_url ? (
-              <Image
-                src={`${process.env.REACT_APP_IMAGE_URL}${data?.data?.image_url}`}
-                height={300}
-              />
+              <Image src={`${data?.data?.image_url}`} height={300} />
             ) : (
               'N/A'
             )}

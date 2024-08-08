@@ -1,13 +1,4 @@
-import {
-  Button,
-  Col,
-  Form,
-  Input,
-  Layout,
-  Row,
-  Typography,
-  message,
-} from 'antd';
+import { Button, Col, Form, Layout, Row, Typography, message } from 'antd';
 import { useDispatch } from 'react-redux';
 
 import { useForm } from 'antd/es/form/Form';
@@ -16,6 +7,8 @@ import { SirenIcon } from 'components/svg/sidebarIcon';
 import { PRIVATE, PUBLIC } from 'constants/appRoutes';
 import { setUser } from 'features/auth/authSlice';
 import { usePost } from 'hooks/useCustomApi';
+import { useState } from 'react';
+import OTPInput from 'react-otp-input';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import style from '../sign-in/sign-in.module.css';
 
@@ -24,6 +17,8 @@ const Otp = () => {
   const navigate = useNavigate();
   const [form] = useForm();
   const dispatch = useDispatch();
+
+  const [otp, setOtp] = useState('');
 
   const postData: any = usePost(VerifyOtp);
   const ReqData: any = usePost(RequestOtp);
@@ -52,20 +47,16 @@ const Otp = () => {
   };
 
   const onFinish = (values: any) => {
-    const otpString = Array.from({ length: 6 })
-      .map((_, index) => values[`otp${index}`])
-      .join('');
-
     const payload = {
       mobile_no: params?.number,
-      otp: otpString,
+      otp: otp,
     };
     try {
       postData.mutate(payload, {
         onSuccess: (data: any) => {
           message.success(data?.message);
           if (data?.data === null) {
-            navigate(`/register/${otpString}/${params?.number}`);
+            navigate(`/register/${otp}/${params?.number}`);
           } else {
             dispatch(setUser(data?.data));
             navigate(PRIVATE.HOME);
@@ -152,27 +143,30 @@ const Otp = () => {
                 >
                   <Form.Item>
                     <Row gutter={8} justify="center">
-                      {Array.from({ length: 6 }).map((_, index) => (
-                        <Col key={index}>
-                          <Form.Item
-                            name={`otp${index}`}
-                            noStyle
-                            rules={[{ required: true, message: 'Required' }]}
-                          >
-                            <Input
-                              maxLength={1}
-                              style={{
-                                width: 50,
-                                height: 50,
-                                textAlign: 'center',
-                                fontSize: '24px',
-                                borderRadius: '4px',
-                                border: '1px solid #d9d9d9',
-                              }}
-                            />
-                          </Form.Item>
-                        </Col>
-                      ))}
+                      <OTPInput
+                        value={otp}
+                        onChange={setOtp}
+                        numInputs={6}
+                        renderInput={(props) => <input {...props} />}
+                        containerStyle={{
+                          display: 'flex',
+                          padding: '0',
+                        }}
+                        inputStyle={{
+                          display: 'inline-block',
+                          width: '100%',
+                          height: '44px',
+                          marginRight: '10px',
+                          padding: '0.4375rem 0.75rem',
+                          border: '1px solid #e6e7e9',
+                          borderRadius: '6px',
+                          fontFamily: 'Hero-New-Medium',
+                          lineHeight: '1.8rem',
+                          fontSize: '16px',
+                          fontWeight: 500,
+                        }}
+                        shouldAutoFocus
+                      />
                     </Row>
                   </Form.Item>
                   <Form.Item>

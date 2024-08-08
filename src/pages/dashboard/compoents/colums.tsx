@@ -4,6 +4,15 @@ import { PRIVATE } from 'constants/appRoutes';
 import { Link } from 'react-router-dom';
 
 const Columns = () => {
+  const downloadImage = async (url: any) => {
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = url.split('/').pop();
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const statusTag = (status: any, text: any) => {
     if (status === 1) {
       return <Tag color="#1677ff">{text || 'N/A'}</Tag>;
@@ -60,6 +69,7 @@ const Columns = () => {
           style={{
             cursor: 'pointer',
           }}
+          onClick={() => downloadImage(record?.photo_url)}
         >
           {record?.photo || 'N/A'}
         </div>
