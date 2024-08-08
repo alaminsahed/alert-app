@@ -4,6 +4,7 @@ import { incidentAction, singleIncident } from 'api/dashboard';
 import { Loader } from 'components/layout';
 import { QUERY_KEYS } from 'constants/queryKeys';
 import { useFetch, usePost } from 'hooks/useCustomApi';
+import { useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const IncidentDetailsPage = () => {
@@ -36,6 +37,26 @@ const IncidentDetailsPage = () => {
         message.error('Something went wrong');
       },
     });
+  };
+
+  const audioRef = useRef<any>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  // Toggle play and pause
+  const togglePlayPause = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  // Handle audio end event
+  const handleAudioEnd = () => {
+    setIsPlaying(false);
   };
 
   return (
@@ -111,7 +132,25 @@ const IncidentDetailsPage = () => {
             }}
           >
             <span>ভয়েসঃ </span>
-            {data?.data?.audio_url ? <div>ভয়েস প্লে করুন</div> : 'N/A'}
+            {data?.data?.audio_url ? (
+              <div>
+                <audio
+                  ref={audioRef}
+                  src={data?.data?.audio_url}
+                  onEnded={handleAudioEnd}
+                />
+                <div
+                  onClick={togglePlayPause}
+                  style={{
+                    cursor: 'pointer',
+                  }}
+                >
+                  {isPlaying ? ' ভয়েস পজ করুন' : ' ভয়েস প্লে করুন'}
+                </div>
+              </div>
+            ) : (
+              'N/A'
+            )}
           </div>
           <div
             style={{
