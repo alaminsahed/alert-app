@@ -1,6 +1,7 @@
 import { Button, Card, Col, Form, Input, message, Row } from 'antd';
 import { useRef, useState } from 'react';
 import { CloseOutlined } from '@ant-design/icons';
+import { useMediaQuery } from 'react-responsive';
 
 import {
   CameraIcon,
@@ -11,13 +12,13 @@ import {
   MicIcon,
   VandalismIcon,
 } from 'components/svg/sidebarIcon';
-import styles from './create-incident.module.css';
 import { usePost } from 'hooks/useCustomApi';
 import { createIncident } from 'api/dashboard';
 
 const { TextArea } = Input;
 
 const CreateIncidentPage = () => {
+  const isMobileScreen = useMediaQuery({ maxWidth: 767 });
   const fileInputRef = useRef<any>(null);
   const [photo, setPhoto] = useState<any>(null);
   const [selectedType, setSelectedType] = useState<any>(1);
@@ -136,7 +137,7 @@ const CreateIncidentPage = () => {
     <Card
       title="Create Incident"
       bodyStyle={{
-        padding: '24px 100px',
+        padding: isMobileScreen ? '24px' : '24px 100px',
       }}
     >
       <Form
@@ -147,7 +148,7 @@ const CreateIncidentPage = () => {
         layout="vertical"
       >
         <Form.Item label="Incident Type" required>
-          <Row gutter={16}>
+          <Row gutter={[16, 16]}>
             {incidentTypes.map((type) => (
               <Col key={type.key}>
                 <div
@@ -194,11 +195,11 @@ const CreateIncidentPage = () => {
             showCount
           />
         </Form.Item>
-        <Row gutter={16}>
-          <Col sm={24} md={12} lg={12} xl={12}>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={24} md={12} lg={12} xl={12}>
             <Form.Item label="Upload Audio">
               <div
-                className={styles.upload_audio_photo}
+                className="upload"
                 onClick={recording ? stopRecording : startRecording}
               >
                 <div
@@ -217,10 +218,10 @@ const CreateIncidentPage = () => {
               </div>
             </Form.Item>
           </Col>
-          <Col sm={24} md={12} lg={12} xl={12}>
+          <Col xs={24} sm={24} md={12} lg={12} xl={12}>
             <Form.Item label="Upload Photo">
               <div
-                className={styles.upload_audio_photo}
+                className="upload"
                 onClick={() => {
                   if (!photo) {
                     handleDivClick();
