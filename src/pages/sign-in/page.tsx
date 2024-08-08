@@ -73,7 +73,7 @@ const SignInPage = () => {
           xl={12}
         >
           <SirenIcon />
-          <h3>ইমারজেন্সি এলার্ট লগিন</h3>
+          <h2>ইমারজেন্সি এলার্ট লগিন</h2>
         </Col>
         <Col
           style={{
